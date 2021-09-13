@@ -1,0 +1,16 @@
+.header_item {
+  margin: 10px;
+  text-align: center;
+  color: gray;
+}
+
+.header_item:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.header_item > img {
+  object-fit: contain;
+  height: 40px;
+  border-radius: 50%;
+}
