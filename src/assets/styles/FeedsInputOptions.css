@@ -1,0 +1,11 @@
+.single_option_container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.single_option_container:hover {
+  cursor: pointer;
+  background-color: #f2f1ee;
+  border-radius: 5px;
+}
