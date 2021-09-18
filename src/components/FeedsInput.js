@@ -18,6 +18,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 // Database
 
 import { db } from "../server/firestore";
+import firebase from "firebase";
 
 const FeedsInput = () => {
   const [enteredPost, setEnteredPost] = useState("");
@@ -30,14 +31,17 @@ const FeedsInput = () => {
 
     db.collection("posts")
       .add({
-        postMessage: enteredPost,
-      })
-      .then(() => {
-        alert("Data saved successfully");
+        Message: enteredPost,
+        Name: "Mateen Ahmed",
+        Avatar: "",
+        Description: "Full Stack MERN Developer",
+        publishedAt: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .catch(() => {
         alert("Oops, there was a error saving data");
       });
+
+    setEnteredPost("");
   };
   return (
     <div className="feeds_input_container">

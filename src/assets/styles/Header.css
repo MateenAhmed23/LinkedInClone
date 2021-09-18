@@ -5,6 +5,8 @@
   border-bottom: 0.05px solid gray;
   position: sticky;
   top: 0px;
+  background-color: white;
+  z-index: 100;
 }
 
 .header_left > img {

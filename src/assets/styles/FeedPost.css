@@ -1,6 +1,29 @@
 .feed_post_container {
   background-color: white;
   padding: 20px;
-  margin: 10px 0px;
+  margin: 10px;
   border-radius: 10px;
+  width: 100%;
+}
+
+.feed_post_header {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.feed_post_heading {
+  margin-left: 10px;
+}
+
+.feed_post_heading > p {
+  font-size: 12px;
+  color: gray;
+}
+
+.input_options_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 15px;
 }
