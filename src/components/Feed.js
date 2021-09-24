@@ -41,9 +41,6 @@ const Feed = () => {
       );
   }, []);
 
-  useEffect(() => {
-    console.log(feedPosts);
-  }, [feedPosts]);
   return (
     <div className="feeds_container">
       <FeedsInput />

@@ -6,7 +6,14 @@ import "../assets/styles/Login.css";
 // Firebase
 import { auth } from "../server/firestore";
 
+// Redux
+
+import { useDispatch } from "react-redux";
+import { login } from "../features/userSlice";
+
 const Login = () => {
+  const dispatch = useDispatch();
+
   const [loginPage, setLoginPage] = useState(true);
 
   const [fullName, setFullName] = useState("");
@@ -22,10 +29,19 @@ const Login = () => {
           password
         );
         // Save additional Info
-        userAuth.user.updateProfile({
+        await userAuth.user.updateProfile({
           fullName,
           profileURL,
         });
+
+        console.log(userAuth.user.email, fullName, profileURL);
+        dispatch(
+          login({
+            email: userAuth.user.email,
+            fullName,
+            profileURL,
+          })
+        );
       } catch (e) {
         console.log(e);
       }
@@ -41,8 +57,18 @@ const Login = () => {
       {loginPage ? (
         <>
           <form>
-            <input type="email" placeholder="Enter Email" />
-            <input type="password" placeholder="Enter Password" />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter Email"
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter Password"
+            />
           </form>
           <button>Login</button>
           <p>
