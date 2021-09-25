@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 import Header from "./components/Header";
@@ -9,9 +9,37 @@ import Login from "./components/Login";
 // Redux
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
+import { useDispatch } from "react-redux";
+import { login, logout } from "./features/userSlice";
+
+// Firebase
+
+import { auth } from "./server/firestore";
 
 function App() {
   const user = useSelector(selectUser);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((userAuth) => {
+      console.log(userAuth.email, userAuth.fullName);
+      if (userAuth) {
+        // user is logged in
+        dispatch(
+          login({
+            email: userAuth.email,
+            fullName: userAuth.fullName,
+            profileURL: userAuth.profileURL,
+          })
+        );
+      } else {
+        // user is not logged in
+        dispatch(logout());
+      }
+    });
+  }, []);
+
   return (
     <>
       {!user ? (

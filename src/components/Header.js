@@ -19,7 +19,20 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 
 import HeaderOptions from "./HeaderOptions";
 
+// Redux
+import { useDispatch } from "react-redux";
+import { logout } from "../features/userSlice";
+
+// firebase
+import { auth } from "../server/firestore";
+
 const Header = () => {
+  const dispatch = useDispatch();
+  const signOutHandler = () => {
+    auth.signOut();
+    dispatch(logout());
+  };
+
   return (
     <div className="header">
       <div className="header_left">
@@ -35,7 +48,7 @@ const Header = () => {
         <HeaderOptions Icon={WorkIcon} title="Jobs" />
         <HeaderOptions Icon={MessageIcon} title="Messages" />
         <HeaderOptions Icon={NotificationsIcon} title="Notifications" />
-        <HeaderOptions Avatar={Avatar} />
+        <HeaderOptions Avatar={Avatar} SignOut={signOutHandler} />
       </div>
     </div>
   );
