@@ -23,7 +23,6 @@ function App() {
 
   useEffect(() => {
     auth.onAuthStateChanged((userAuth) => {
-      console.log(userAuth.email, userAuth.fullName);
       if (userAuth) {
         // user is logged in
         dispatch(

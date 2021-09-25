@@ -19,7 +19,34 @@ const Login = () => {
   const [fullName, setFullName] = useState("");
   const [profileURL, setProfileURL] = useState("");
   const [email, setEmail] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const loginHandler = async () => {
+    try {
+      const userAuth = await auth.signInWithEmailAndPassword(
+        loginEmail,
+        loginPassword
+      );
+      console.log(
+        "This is what.. ",
+        userAuth,
+        userAuth.user.email,
+        userAuth.user.fullName,
+        userAuth.user.profileURL
+      );
+      dispatch(
+        login({
+          email: userAuth.email,
+          fullName: userAuth.fullName,
+          profileURL: userAuth.profileURL,
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const signUpHandler = async () => {
     if (fullName !== "" && email !== "" && password !== "") {
@@ -30,16 +57,15 @@ const Login = () => {
         );
         // Save additional Info
         await userAuth.user.updateProfile({
-          fullName,
-          profileURL,
+          fullName: fullName,
+          profileURL: profileURL,
         });
 
-        console.log(userAuth.user.email, fullName, profileURL);
         dispatch(
           login({
             email: userAuth.user.email,
-            fullName,
-            profileURL,
+            fullName: fullName,
+            profileURL: profileURL,
           })
         );
       } catch (e) {
@@ -59,18 +85,19 @@ const Login = () => {
           <form>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
               placeholder="Enter Email"
+              autoComplete="off"
             />
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
               placeholder="Enter Password"
             />
           </form>
-          <button>Login</button>
+          <button onClick={loginHandler}>Login</button>
           <p>
             Are you a new user?{" "}
             <span className="register_link" onClick={() => setLoginPage(false)}>
