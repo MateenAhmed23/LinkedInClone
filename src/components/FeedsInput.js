@@ -20,8 +20,14 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import { db } from "../server/firestore";
 import firebase from "firebase";
 
+// Redux
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
+
 const FeedsInput = () => {
   const [enteredPost, setEnteredPost] = useState("");
+
+  const user = useSelector(selectUser);
 
   const inputChangeHandler = (e) => {
     setEnteredPost(e.target.value);
@@ -29,12 +35,14 @@ const FeedsInput = () => {
   const createPostHandler = (e) => {
     e.preventDefault();
 
+    console.log(user.profileURL);
+
     db.collection("posts")
       .add({
         Message: enteredPost,
-        Name: "Mateen Ahmed",
-        Avatar: "",
-        Description: "Full Stack MERN Developer",
+        Name: user.fullName,
+        Avatar: user.profileURL !== "" ? user.profileURL : "",
+        Description: user.email,
         publishedAt: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .catch(() => {

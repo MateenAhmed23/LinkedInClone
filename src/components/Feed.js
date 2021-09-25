@@ -45,10 +45,11 @@ const Feed = () => {
     <div className="feeds_container">
       <FeedsInput />
       {feedPosts &&
-        feedPosts.map((post) => (
+        feedPosts.map((post, index) => (
           <FeedPosts
+            key={index}
             Message={post.Message}
-            Avatar={post.Avatar}
+            AvatarURL={post.AvatarURL}
             Description={post.Description}
             Name={post.Name}
           />

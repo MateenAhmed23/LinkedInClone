@@ -7,7 +7,13 @@ import "../assets/styles/Sidebar.css";
 // Assets
 import BackgroundImage from "../assets/images/bgimage.jfif";
 
+// Redux
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
+
 const Sidebar = () => {
+  const user = useSelector(selectUser);
+
   const RecentItems = ({ title }) => {
     return (
       <div>
@@ -20,11 +26,15 @@ const Sidebar = () => {
       <div className="sidebar_left">
         <img src={BackgroundImage} alt="Background of profile" />
         <div className="avatar">
-          <Avatar />
+          {user.profileURL !== "" ? (
+            <Avatar src={user.profileURL}>{user.fullName} </Avatar>
+          ) : (
+            <Avatar />
+          )}
         </div>
         <div style={{ borderBottom: "0.1px solid #dfdedb" }}>
-          <h4>Mateen Ahmed</h4>
-          <p>mateen462@gmail.com</p>
+          <h4>{user.fullName}</h4>
+          <p>{user.email}</p>
         </div>
         <div className="sidebar_left_stats">
           <p className="display_stats">Who viewed your profile</p>

@@ -27,9 +27,9 @@ function App() {
         // user is logged in
         dispatch(
           login({
-            email: userAuth.user.email,
-            fullName: userAuth.user.displayName,
-            profileURL: userAuth.user.photoURL,
+            email: userAuth.email,
+            fullName: userAuth.displayName,
+            profileURL: userAuth.photoURL,
           })
         );
       } else {

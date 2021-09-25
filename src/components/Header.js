@@ -32,8 +32,6 @@ const Header = () => {
   // Getting user
   const user = useSelector(selectUser);
 
-  console.log(user);
-
   const signOutHandler = () => {
     auth.signOut();
     dispatch(logout());
@@ -54,7 +52,10 @@ const Header = () => {
         <HeaderOptions Icon={WorkIcon} title="Jobs" />
         <HeaderOptions Icon={MessageIcon} title="Messages" />
         <HeaderOptions Icon={NotificationsIcon} title="Notifications" />
-        <HeaderOptions Avatar={Avatar} SignOut={signOutHandler} />
+        <HeaderOptions
+          Avatar={user.profileURL !== "" ? user.profileURL : Avatar}
+          SignOut={signOutHandler}
+        />
       </div>
     </div>
   );
