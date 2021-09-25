@@ -29,18 +29,12 @@ const Login = () => {
         loginEmail,
         loginPassword
       );
-      console.log(
-        "This is what.. ",
-        userAuth,
-        userAuth.user.email,
-        userAuth.user.fullName,
-        userAuth.user.profileURL
-      );
+
       dispatch(
         login({
-          email: userAuth.email,
-          fullName: userAuth.fullName,
-          profileURL: userAuth.profileURL,
+          email: userAuth.user.email,
+          fullName: userAuth.user.displayName,
+          profileURL: userAuth.user.photoURL,
         })
       );
     } catch (e) {
@@ -57,15 +51,15 @@ const Login = () => {
         );
         // Save additional Info
         await userAuth.user.updateProfile({
-          fullName: fullName,
-          profileURL: profileURL,
+          displayName: fullName,
+          photoURL: profileURL,
         });
 
         dispatch(
           login({
             email: userAuth.user.email,
-            fullName: fullName,
-            profileURL: profileURL,
+            fullName: userAuth.user.displayName,
+            profileURL: userAuth.user.photoURL,
           })
         );
       } catch (e) {

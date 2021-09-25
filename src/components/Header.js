@@ -20,14 +20,20 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import HeaderOptions from "./HeaderOptions";
 
 // Redux
-import { useDispatch } from "react-redux";
-import { logout } from "../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../features/userSlice";
 
 // firebase
 import { auth } from "../server/firestore";
 
 const Header = () => {
   const dispatch = useDispatch();
+
+  // Getting user
+  const user = useSelector(selectUser);
+
+  console.log(user);
+
   const signOutHandler = () => {
     auth.signOut();
     dispatch(logout());
