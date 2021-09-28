@@ -4,6 +4,9 @@ import FeedsInput from "./FeedsInput";
 
 import { db } from "../server/firestore";
 
+// FlipMove
+import FlipMove from "react-flip-move";
+
 const Feed = () => {
   const [feedPosts, setFeedPosts] = useState([]);
 
@@ -36,6 +39,7 @@ const Feed = () => {
             AvatarURL: doc.data().Avatar,
             Description: doc.data().Description,
             Name: doc.data().Name,
+            id: doc.id,
           }))
         )
       );
@@ -44,16 +48,18 @@ const Feed = () => {
   return (
     <div className="feeds_container">
       <FeedsInput />
-      {feedPosts &&
-        feedPosts.map((post, index) => (
-          <FeedPosts
-            key={index}
-            Message={post.Message}
-            AvatarURL={post.AvatarURL}
-            Description={post.Description}
-            Name={post.Name}
-          />
-        ))}
+      <FlipMove>
+        {feedPosts &&
+          feedPosts.map((post, index) => (
+            <FeedPosts
+              key={post.id}
+              Message={post.Message}
+              AvatarURL={post.AvatarURL}
+              Description={post.Description}
+              Name={post.Name}
+            />
+          ))}
+      </FlipMove>
     </div>
   );
 };
